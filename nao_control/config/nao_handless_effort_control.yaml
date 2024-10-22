@@ -1,0 +1,131 @@
+nao:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 100
+
+  # Controllers ------------------------------------------------
+  HeadYaw_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: HeadYaw
+    pid: {p: 100.0, i: 0.01, d: 0.0}
+
+
+  HeadPitch_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: HeadPitch
+    pid: {p: 100.0, i: 0.01, d: 0.0}
+
+  # arms
+
+  LShoulderPitch_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LShoulderPitch
+    pid: {p: 100.0, i: 0.01, d: 0.0} # damped to avoid excessive jerk forces
+
+  LShoulderRoll_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LShoulderRoll
+    pid: {p: 100.0, i: 0.01, d: 0.0} # damped to avoid excessive jerk forces
+
+  RShoulderPitch_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: RShoulderPitch
+    pid: {p: 100.0, i: 0.01, d: 0.0} # damped to avoid excessive jerk forces
+
+  RShoulderRoll_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: RShoulderRoll
+    pid: {p: 100.0, i: 0.01, d: 0.0} # damped to avoid excessive jerk forces
+
+  # legs
+
+  LHipYawPitch_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LHipYawPitch
+    # pid: {p: 100.0, i: 50.0, d: 0.1 }
+    pid: {p: 400.0, i: 400.0, d: 0.00} # 2019 tuning
+    # pid: {p: 1000.0, i: 100.0, d: 0.0}
+
+  LHipRoll_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LHipRoll
+    # pid: {p: 100.0, i: 50.0, d: 0.1 }
+    pid: {p: 400.0, i: 400.0, d: 0.00} # 2019 tuning
+    # pid: {p: 1000.0, i: 100.0, d: 0.0}
+
+  LHipPitch_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LHipPitch
+    # pid: {p: 100.0, i: 50.0, d: 0.1 }
+    pid: {p: 400.0, i: 400.0, d: 0.00} # 2019 tuning
+    # pid: {p: 1000.0, i: 100.0, d: 0.0}s
+
+  LKneePitch_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LKneePitch
+    # pid: {p: 100.0, i: 50.0, d: 0.1 }
+    pid: {p: 400.0, i: 400.0, d: 0.00} # 2019 tuning
+    # pid: {p: 1000.0, i: 100.0, d: 0.0}
+
+  LAnklePitch_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LAnklePitch
+    pid: {p: 400.0, i: 400.0, d: 0.00}
+    # pid: {p: 1000.0, i: 100.0, d: 0.0}
+    # pid: {p: 400.0, i: 0.01, d: 0.1} # 2019 tuning
+
+  LAnkleRoll_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: LAnkleRoll
+    pid: {p: 400.0, i: 400.0, d: 0.00}
+    # pid: {p: 400.0, i: 0.01, d: 0.1} # 2019 tuning
+    # pid: {p: 1000.0, i: 100.0, d: 0.0}
+
+  RHipYawPitch_position_controller:
+  #   type: effort_controllers/JointPositionController
+  #   joint: RHipYawPitch
+    pid: {p: 400.0, i: 400.0, d: 0.00} # 2019 tuning
+    # pid: {p: 1000.0, i: 100.0, d: 0.0}s
+
+  RHipRoll_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: RHipRoll
+    # pid: {p: 100.0, i: 50.0, d: 0.1 }
+    pid: {p: 400.0, i: 400.0, d: 0.00} # 2019 tuning
+    # pid: {p: 1000.0, i: 100.0, d: 0.0}
+
+  RHipPitch_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: RHipPitch
+    # pid: {p: 100.0, i: 50.0, d: 0.1 }
+    pid: {p: 400.0, i: 400.0, d: 0.00} # 2019 tuning
+    # pid: {p: 1000.0, i: 100.0, d: 0.0}
+
+  RKneePitch_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: RKneePitch
+    # pid: {p: 100.0, i: 50.0, d: 0.1 }
+    pid: {p: 400.0, i: 400.0, d: 0.00} # 2019 tuning
+    # pid: {p: 1000.0, i: 100.0, d: 0.0}
+
+  RAnklePitch_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: RAnklePitch
+    # pid: {p: 1000.0, i: 100.0, d: 0.0}
+    pid: {p: 400.0, i: 400.0, d: 0.0}
+    # pid: {p: 400.0, i: 0.01, d: 0.1} # 2019 tuning
+
+  RAnkleRoll_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: RAnkleRoll
+    pid: {p: 400.0, i: 400.0, d: 0.0}
+    # pid: {p: 400.0, i: 0.01, d: 0.05} # 2019 tuning
+    # pid: {p: 1000.0, i: 100.0, d: 0.0}
+
+
+# # set PID gains for HipYawPitch joint mimic'ing
+#   gazebo_ros_control:
+#     pid_gains:
+#       RHipYawPitch: {p: 100.0, i: 50.0, d: 0.1, publish_state: true }
+

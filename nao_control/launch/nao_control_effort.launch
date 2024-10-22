@@ -5,8 +5,8 @@
     <arg name="handless" default="false"/>
 
     <!-- Load joint controller configurations from YAML file to parameter server -->
-    <rosparam file="$(find nao_control)/config/nao_position_control.yaml" command="load" unless="$(arg handless)"/>
-    <rosparam file="$(find nao_control)/config/nao_handless_position_control.yaml" command="load" if="$(arg handless)"/>
+    <rosparam file="$(find nao_control)/config/nao_effort_control.yaml" command="load" unless="$(arg handless)"/>
+    <rosparam file="$(find nao_control)/config/nao_handless_effort_control.yaml" command="load" if="$(arg handless)"/>
 
     <!-- load the controllers -->
     <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" ns="nao" output="screen" unless="$(arg handless)"
@@ -21,10 +21,11 @@
               LShoulderPitch_position_controller LShoulderRoll_position_controller
               RShoulderPitch_position_controller RShoulderRoll_position_controller
               LHipYawPitch_position_controller LHipRoll_position_controller LHipPitch_position_controller LKneePitch_position_controller LAnklePitch_position_controller LAnkleRoll_position_controller
-              RHipYawPitch_position_controller RHipRoll_position_controller RHipPitch_position_controller RKneePitch_position_controller RAnklePitch_position_controller RAnkleRoll_position_controller
+              RHipRoll_position_controller RHipPitch_position_controller RKneePitch_position_controller RAnklePitch_position_controller RAnkleRoll_position_controller
               joint_state_controller"/>
 
     <!-- convert joint states to TF transforms for rviz, etc -->
+    <!-- @note already provided by nao_description! -->
     <!-- @todo move to separate launch file, taking prefix as argument? or edit [nao_description]/robot_state_publisher.launch? -->
     <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"> -->
         <!-- <remap from="/joint_states" to="/nao/joint_states" /> -->
