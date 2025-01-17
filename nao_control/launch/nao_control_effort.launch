@@ -3,26 +3,29 @@
     <!-- whether to load hanless model and elbow/wrist/hand joint controllers -->
     <!-- cf. joaocandre/nao_robot fork of ros_naoqi/nao_robot -->
     <arg name="handless" default="false"/>
+    <arg name="no_hip_yaw" default="true"/>
 
-    <!-- Load joint controller configurations from YAML file to parameter server -->
+    <!-- load joint controller configurations from YAML file to parameter server -->
     <rosparam file="$(find nao_control)/config/nao_effort_control.yaml" command="load" unless="$(arg handless)"/>
     <rosparam file="$(find nao_control)/config/nao_handless_effort_control.yaml" command="load" if="$(arg handless)"/>
 
+    <!-- define controller names for convenience when launching controller_spawner node(s) (must match model cf. nao_description) -->
+    <arg name="default_controllers"
+        value="HeadYaw_position_controller HeadPitch_position_controller
+               LShoulderPitch_position_controller LShoulderRoll_position_controller
+               RShoulderPitch_position_controller RShoulderRoll_position_controller
+               LHipRoll_position_controller LHipPitch_position_controller LKneePitch_position_controller LAnklePitch_position_controller LAnkleRoll_position_controller
+               RHipRoll_position_controller RHipPitch_position_controller RKneePitch_position_controller RAnklePitch_position_controller RAnkleRoll_position_controller
+               joint_state_controller"/>
+
     <!-- load the controllers -->
     <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" ns="nao" output="screen" unless="$(arg handless)"
-        args="HeadYaw_position_controller HeadPitch_position_controller
-              LShoulderPitch_position_controller LShoulderRoll_position_controller LElbowYaw_position_controller LWristYaw_position_controller LElbowRoll_position_controller LHand_position_controller
-              RShoulderPitch_position_controller RShoulderRoll_position_controller RElbowYaw_position_controller RWristYaw_position_controller RElbowRoll_position_controller RHand_position_controller
-              LHipYawPitch_position_controller LHipRoll_position_controller LHipPitch_position_controller LKneePitch_position_controller LAnklePitch_position_controller LAnkleRoll_position_controller
-              RHipYawPitch_position_controller RHipRoll_position_controller RHipPitch_position_controller RKneePitch_position_controller RAnklePitch_position_controller RAnkleRoll_position_controller
-              joint_state_controller"/>
+        args="$(arg default_controllers)
+              LElbowYaw_position_controller LWristYaw_position_controller LElbowRoll_position_controller LHand_position_controller
+              RElbowYaw_position_controller RWristYaw_position_controller RElbowRoll_position_controller RHand_position_controller"/>
     <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" ns="nao" output="screen" if="$(arg handless)"
-        args="HeadYaw_position_controller HeadPitch_position_controller
-              LShoulderPitch_position_controller LShoulderRoll_position_controller
-              RShoulderPitch_position_controller RShoulderRoll_position_controller
-              LHipYawPitch_position_controller LHipRoll_position_controller LHipPitch_position_controller LKneePitch_position_controller LAnklePitch_position_controller LAnkleRoll_position_controller
-              RHipRoll_position_controller RHipPitch_position_controller RKneePitch_position_controller RAnklePitch_position_controller RAnkleRoll_position_controller
-              joint_state_controller"/>
+        args="$(arg default_controllers)"/>
+    <node name="controller_spawner_hip" pkg="controller_manager" type="spawner" respawn="false" ns="nao" output="screen" unless="$(arg no_hip_yaw)" args="LHipYawPitch_position_controller"/>
 
     <!-- convert joint states to TF transforms for rviz, etc -->
     <!-- @note already provided by nao_description! -->
